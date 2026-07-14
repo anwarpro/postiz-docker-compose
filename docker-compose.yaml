@@ -166,12 +166,6 @@ services:
     networks:
       - postiz-network
 
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    restart: always
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in Coolify}
-    network_mode: host
-
   # -----------------------
   # Temporal Stack
   # -----------------------
