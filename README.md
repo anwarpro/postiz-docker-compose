@@ -43,7 +43,7 @@ Use these Coolify settings:
 ```text
 Service: postiz
 Port: 5000
-Domain: postiz.helloanwar.com
+Domain: http://postiz.helloanwar.com
 ```
 
 Add these required environment variables in Coolify before deploying:
@@ -54,6 +54,7 @@ POSTIZ_BACKEND_URL=https://postiz.helloanwar.com/api
 POSTIZ_JWT_SECRET=replace-with-a-long-random-secret
 POSTIZ_POSTGRES_PASSWORD=replace-with-a-strong-postgres-password
 POSTIZ_DISABLE_REGISTRATION=false
+CLOUDFLARE_TUNNEL_TOKEN=replace-with-cloudflare-tunnel-token
 ```
 
 Temporal uses an internal Docker-network-only PostgreSQL database with a fixed
@@ -66,9 +67,14 @@ After creating your first account, change this and redeploy:
 POSTIZ_DISABLE_REGISTRATION=true
 ```
 
-When using Cloudflare Tunnel, route the public hostname to Coolify's proxy, not directly
-to the Postiz container:
+Cloudflare Tunnel is included as the `cloudflared` service. In Cloudflare Zero Trust,
+configure the public hostname to route to Coolify's HTTP proxy, not directly to the
+Postiz container:
 
 ```text
 postiz.helloanwar.com -> http://localhost:80
 ```
+
+Keep the Coolify domain as `http://postiz.helloanwar.com` for tunnel mode so
+Coolify does not force HTTPS or request a Let's Encrypt certificate behind the
+Cloudflare Tunnel.
