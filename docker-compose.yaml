@@ -199,6 +199,7 @@ services:
     environment:
       POSTGRES_PASSWORD: '${TEMPORAL_POSTGRES_PASSWORD:?Set TEMPORAL_POSTGRES_PASSWORD in Coolify}'
       POSTGRES_USER: 'temporal'
+      POSTGRES_DB: 'temporal'
     networks:
       - temporal-network
     expose:
@@ -221,18 +222,18 @@ services:
       temporal-elasticsearch:
         condition: service_healthy
     environment:
-      - DB=postgres12
-      - DB_PORT=5432
-      - POSTGRES_USER=temporal
-      - POSTGRES_PWD=${TEMPORAL_POSTGRES_PASSWORD:?Set TEMPORAL_POSTGRES_PASSWORD in Coolify}
-      - POSTGRES_SEEDS=temporal-postgresql
-      - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
-      - ENABLE_ES=true
-      - ES_SEEDS=temporal-elasticsearch
-      - ES_VERSION=v7
-      - TEMPORAL_NAMESPACE=default
-      - TEMPORAL_ADDRESS=temporal:7233
-      - TEMPORAL_CLI_ADDRESS=temporal:7233
+      DB: 'postgres12'
+      DB_PORT: '5432'
+      POSTGRES_USER: 'temporal'
+      POSTGRES_PWD: '${TEMPORAL_POSTGRES_PASSWORD:?Set TEMPORAL_POSTGRES_PASSWORD in Coolify}'
+      POSTGRES_SEEDS: 'temporal-postgresql'
+      DYNAMIC_CONFIG_FILE_PATH: 'config/dynamicconfig/development-sql.yaml'
+      ENABLE_ES: 'true'
+      ES_SEEDS: 'temporal-elasticsearch'
+      ES_VERSION: 'v7'
+      TEMPORAL_NAMESPACE: 'default'
+      TEMPORAL_ADDRESS: 'temporal:7233'
+      TEMPORAL_CLI_ADDRESS: 'temporal:7233'
     networks:
       - temporal-network
     expose:
