@@ -216,6 +216,19 @@ services:
   temporal:
     image: temporalio/auto-setup:1.28.1
     restart: always
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        mkdir -p /etc/temporal/config/dynamicconfig
+        cat > /etc/temporal/config/dynamicconfig/development-sql.yaml <<'EOF'
+        limit.maxIDLength:
+          - value: 255
+            constraints: {}
+        system.forceSearchAttributesCacheRefreshOnRead:
+          - value: true
+            constraints: {}
+        EOF
+        exec /etc/temporal/entrypoint.sh autosetup
     depends_on:
       temporal-postgresql:
         condition: service_healthy
@@ -244,10 +257,6 @@ services:
       timeout: 5s
       retries: 30
       start_period: 90s
-    volumes:
-      - ./dynamicconfig:/etc/temporal/config/dynamicconfig
-    labels:
-      kompose.volume.type: configMap
 
   temporal-admin-tools:
     image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
