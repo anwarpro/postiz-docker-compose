@@ -53,9 +53,12 @@ POSTIZ_URL=https://postiz.helloanwar.com
 POSTIZ_BACKEND_URL=https://postiz.helloanwar.com/api
 POSTIZ_JWT_SECRET=replace-with-a-long-random-secret
 POSTIZ_POSTGRES_PASSWORD=replace-with-a-strong-postgres-password
-TEMPORAL_POSTGRES_PASSWORD=replace-with-a-strong-temporal-password
 POSTIZ_DISABLE_REGISTRATION=false
 ```
+
+Temporal uses an internal Docker-network-only PostgreSQL database with a fixed
+alphanumeric password in `docker-compose.yaml`. It is not published outside the
+compose network.
 
 After creating your first account, change this and redeploy:
 
