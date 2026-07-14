@@ -219,8 +219,7 @@ services:
     entrypoint: ["/bin/bash", "-c"]
     command:
       - |
-        mkdir -p /etc/temporal/config/dynamicconfig
-        cat > /etc/temporal/config/dynamicconfig/development-sql.yaml <<'EOF'
+        cat > /tmp/development-sql.yaml <<'EOF'
         limit.maxIDLength:
           - value: 255
             constraints: {}
@@ -240,7 +239,7 @@ services:
       POSTGRES_USER: 'temporal'
       POSTGRES_PWD: 'temporalpostgrespass2026'
       POSTGRES_SEEDS: 'temporal-postgresql'
-      DYNAMIC_CONFIG_FILE_PATH: '/etc/temporal/config/dynamicconfig/development-sql.yaml'
+      DYNAMIC_CONFIG_FILE_PATH: '/tmp/development-sql.yaml'
       ENABLE_ES: 'true'
       ES_SEEDS: 'temporal-elasticsearch'
       ES_VERSION: 'v7'
